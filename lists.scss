@@ -1,0 +1,26 @@
+$list_numeration_type: ( 
+						cyrillic_low: ('а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'э', 'ю', 'я'), 
+						cyrillic_up:('А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Э', 'Ю', 'Я'), 
+						roman_low: ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'), 
+						roman_up:('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'),
+						latin_low:('i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x', 'xi', 'xii', 'xiii', 'xiv', 'xv', 'xvi', 'xvii', 'xviii', 'xix', 'xx'),  
+						latin_up:('I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX')
+						);                   
+@mixin marker($array: cyrillic_low, $type:".", $limit:10){
+   $array: map-get($list_numeration_type,$array);
+   @for $i from 1 through $limit{
+       &:nth-of-type(#{$i})::before{ 
+           display: inline-block; 
+           margin-right: 5px; 
+           content:nth($array,$i)+$type;      
+       }
+   }
+}
+
+.example_list li{
+	list-style-type: none;
+	padding-left: 10px;
+	position: relative;
+	@include marker(cyrillic_up, ") ", 10);
+	
+}
